@@ -1,7 +1,14 @@
+import Foundation
 import UIKit
 
-final class MovieQuizViewController: UIViewController {
-
+final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
+    
+    
+    private var currentQuestionIndex = 0
+    private var correctAnswers = 0
+    private let questionsAmount: Int = 10
+    private var questionFactory: QuestionFactoryProtocol?
+    private var currentQuestion: QuizQuestion?
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         
@@ -30,25 +37,24 @@ final class MovieQuizViewController: UIViewController {
         
         super.viewDidLoad()
         configFont()
-        if let firstQuestion = questionFactory.requestNextQuestion() {
-            currentQuestion = firstQuestion
-            let viewModel = convert(model: firstQuestion)
-            show(quiz: viewModel)
-        }
+        
+        questionFactory = QuestionFactory(delegate: self)
+        questionFactory?.requestNextQuestion()
     }
     
+    func didReceiveNextQuestion(question: QuizQuestion?) {
+        // проверка, что вопрос не nil
+        guard let question = question else {
+            return
+        }
 
-    
-
-    
-    
-    private var currentQuestionIndex = 0
-    private var correctAnswers = 0
-    private let questionsAmount: Int = 10
-    private var questionFactory: QuestionFactory = QuestionFactory()
-    private var currentQuestion: QuizQuestion?
-    
-
+        currentQuestion = question
+        let viewModel = convert(model: question)
+        
+        DispatchQueue.main.async { [weak self] in
+               self?.show(quiz: viewModel)
+           }
+    }
     
 
     
@@ -59,11 +65,11 @@ final class MovieQuizViewController: UIViewController {
                     questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
         
     }
-    
+    // здесь пометка
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
-        textLabel.text = step.question
         counterLabel.text = step.questionNumber
+        textLabel.text = step.question
     }
     
     private func showAnswerResult(isCorrect: Bool) {
@@ -93,12 +99,7 @@ final class MovieQuizViewController: UIViewController {
         } else {
             currentQuestionIndex += 1
             
-            if let nextQuestion = questionFactory.requestNextQuestion() {
-                currentQuestion = nextQuestion
-                let viewModel = convert(model: nextQuestion)
-
-                show(quiz: viewModel)
-            }
+            questionFactory?.requestNextQuestion()
         }
     }
     
@@ -112,12 +113,7 @@ final class MovieQuizViewController: UIViewController {
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             
-            if let firstQuestion = self.questionFactory.requestNextQuestion() {
-                self.currentQuestion = firstQuestion
-                let viewModel = self.convert(model: firstQuestion)
-
-                self.show(quiz: viewModel)
-            }
+            self.questionFactory?.requestNextQuestion()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
