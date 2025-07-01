@@ -27,7 +27,7 @@ final class StatisticService: StatisticServiceProtocol {
         get {
             let correct = storage.integer(forKey: Keys.bestGamecorrect.rawValue)
             let total = storage.integer(forKey: Keys.bestGametotal.rawValue)
-            let date = storage.object(forKey: Keys.bestGameDate.rawValue) as! Date
+            let date = storage.object(forKey: Keys.bestGameDate.rawValue) as? Date ?? Date()
             return GameResult(correct: correct, total: total, date: date)
             
         }
@@ -54,7 +54,6 @@ final class StatisticService: StatisticServiceProtocol {
         }
         return (Double(correctAnswers) / (Double(questionsAmount) * Double(gamesCount))) * 100
     }
-    
     
     
     func store(correct count: Int, total amount: Int) {

@@ -3,6 +3,7 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
+    
     @IBOutlet private var questionTitleLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
@@ -15,6 +16,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
+    private var statisticService = StatisticService()
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         
@@ -40,12 +42,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         super.viewDidLoad()
         configFont()
-        // statisticservise = StatisticsServise()
+        statisticService = StatisticService()
         questionFactory = QuestionFactory(delegate: self)
         questionFactory?.requestNextQuestion()
         
     }
-    
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
@@ -105,9 +106,22 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func show(quiz result: QuizResultsViewModel) {
+        statisticService.store(correct: correctAnswers, total: questionsAmount)
+        
+        let bestGame = statisticService.bestGame
+        let date = bestGame.date.dateTimeString
+        let totalAccuracy = statisticService.totalAccuracy
+        let gamesCount = statisticService.gamesCount
+        
+        
         let alert = UIAlertController(
             title: result.title,
-            message: result.text,
+            message: """
+        Ваш результат: \(correctAnswers)/\(questionsAmount)
+        Количество сыгранных квизов: \(gamesCount)
+        Рекорд: \(bestGame.correct)/\(bestGame.total) (\(date))
+        Средняя точность: \(String(format: "%.2f", totalAccuracy))%
+        """,
             preferredStyle: .alert)
         
         let action = UIAlertAction(title: result.buttonText, style: .default) { _ in
