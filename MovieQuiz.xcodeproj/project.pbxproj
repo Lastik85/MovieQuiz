@@ -28,6 +28,9 @@
 		CBD995022E0DCF2800F7FAC6 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD995012E0DCF2500F7FAC6 /* AlertPresenter.swift */; };
 		CBD995062E0DD10B00F7FAC6 /* AlertProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD995052E0DD0D400F7FAC6 /* AlertProtocol.swift */; };
 		CBD995082E0DD13600F7FAC6 /* AlertDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD995072E0DD12A00F7FAC6 /* AlertDelegate.swift */; };
+		CBE19EDA2E11A5F0007236CC /* StatisticServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE19ED92E11A5ED007236CC /* StatisticServiceProtocol.swift */; };
+		CBE19EDC2E11A7DC007236CC /* GameResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE19EDB2E11A7D7007236CC /* GameResult.swift */; };
+		CBE19EEE2E11ABF5007236CC /* StatisticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE19EED2E11ABF1007236CC /* StatisticService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		CBD995012E0DCF2500F7FAC6 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		CBD995052E0DD0D400F7FAC6 /* AlertProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertProtocol.swift; sourceTree = "<group>"; };
 		CBD995072E0DD12A00F7FAC6 /* AlertDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDelegate.swift; sourceTree = "<group>"; };
+		CBE19ED92E11A5ED007236CC /* StatisticServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticServiceProtocol.swift; sourceTree = "<group>"; };
+		CBE19EDB2E11A7D7007236CC /* GameResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResult.swift; sourceTree = "<group>"; };
+		CBE19EED2E11ABF1007236CC /* StatisticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,7 @@
 		611342392B701CF6003FC2A4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CBE19EDB2E11A7D7007236CC /* GameResult.swift */,
 				CBD994FF2E0DCE5E00F7FAC6 /* AlertModel.swift */,
 				CB95110A2E0B1EA200C8D2B0 /* QuizQuestion.swift */,
 				CB9511082E0B1E8B00C8D2B0 /* QuizResultsViewModel.swift */,
@@ -81,6 +88,8 @@
 		6113423A2B701CF8003FC2A4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				CBE19EED2E11ABF1007236CC /* StatisticService.swift */,
+				CBE19ED92E11A5ED007236CC /* StatisticServiceProtocol.swift */,
 				CBD995072E0DD12A00F7FAC6 /* AlertDelegate.swift */,
 				CBD995052E0DD0D400F7FAC6 /* AlertProtocol.swift */,
 				CB1C42B02E0D805E0083B950 /* QuestionFactoryDelegate.swift */,
@@ -230,13 +239,16 @@
 				CBD995082E0DD13600F7FAC6 /* AlertDelegate.swift in Sources */,
 				CBD995022E0DCF2800F7FAC6 /* AlertPresenter.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
+				CBE19EDA2E11A5F0007236CC /* StatisticServiceProtocol.swift in Sources */,
 				CB1C42AF2E0D7AEE0083B950 /* QuestionFactoryProtocol.swift in Sources */,
 				CB1C42B12E0D80610083B950 /* QuestionFactoryDelegate.swift in Sources */,
 				CB9511072E0B1BDA00C8D2B0 /* QuestionFactory.swift in Sources */,
+				CBE19EDC2E11A7DC007236CC /* GameResult.swift in Sources */,
 				CB9511092E0B1E8F00C8D2B0 /* QuizResultsViewModel.swift in Sources */,
 				CB95110B2E0B1EA700C8D2B0 /* QuizQuestion.swift in Sources */,
 				CBD995002E0DCE6700F7FAC6 /* AlertModel.swift in Sources */,
 				CBD995062E0DD10B00F7FAC6 /* AlertProtocol.swift in Sources */,
+				CBE19EEE2E11ABF5007236CC /* StatisticService.swift in Sources */,
 				CB9511052E0B195500C8D2B0 /* QuizStepViewModel.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,

@@ -22,50 +22,52 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             return
         }
         let givenAnswer = true
+        stopClickButton(isEnabled: false)
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
+    
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         guard let currentQuestion = currentQuestion else {
             return
         }
         let givenAnswer = false
+        stopClickButton(isEnabled: false)
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
-
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         configFont()
-        
+        // statisticservise = StatisticsServise()
         questionFactory = QuestionFactory(delegate: self)
         questionFactory?.requestNextQuestion()
+        
     }
+    
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
             return
         }
-
+        
         currentQuestion = question
         let viewModel = convert(model: question)
         
         DispatchQueue.main.async { [weak self] in
-               self?.show(quiz: viewModel)
-           }
+            self?.show(quiz: viewModel)
+        }
     }
-    
-
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(
-                    image: UIImage(named: model.image) ?? UIImage(),
-                    question: model.text,
-                    questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
+            image: UIImage(named: model.image) ?? UIImage(),
+            question: model.text,
+            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
         
     }
-    // здесь пометка
+    
     private func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
         counterLabel.text = step.questionNumber
@@ -85,20 +87,19 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
     }
     
-    
     private func showNextQuestionOrResults() {
+        stopClickButton(isEnabled: true)
         if currentQuestionIndex == questionsAmount - 1 {
-            let text = correctAnswers == questionsAmount ?
-                    "Поздравляем, вы ответили на 10 из 10!" :
-                    "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
+            let message = correctAnswers == questionsAmount ?
+            "Поздравляем, вы ответили на 10 из 10!" :
+            "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
-                text: text,
+                text: message,
                 buttonText: "Сыграть ещё раз")
             show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
-            
             questionFactory?.requestNextQuestion()
         }
     }
@@ -115,7 +116,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             self.questionFactory?.requestNextQuestion()
         }
-
+        
         
         alert.addAction(action)
         
@@ -130,6 +131,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         yesButton.titleLabel?.font =  UIFont(name: "YSDisplay-Medium", size: 20)
     }
     
-}
+    private func stopClickButton(isEnabled: Bool){
+        noButton.isEnabled = isEnabled
+        yesButton.isEnabled = isEnabled
+    }
     
+}
+
 
