@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class AlertPresenter{
+final class AlertPresenter{
     
     private weak var delegate: AlertDelegate?
     init(delegate: AlertDelegate?) {
@@ -10,23 +10,23 @@ class AlertPresenter{
     
     
     func show(alert model: AlertModel) {
-    let alert = UIAlertController(
-        title: model.title,
-        message: model.message,
-        preferredStyle:  .alert)
+        let alert = UIAlertController(
+            title: model.title,
+            message: model.message,
+            preferredStyle:  .alert)
         
         let action = UIAlertAction(title: model.buttonText, style: .default) { _ in
             
         }
         alert.addAction(action)
         delegate?.show(alert: alert)
-            
-        }
-        }
         
-        
-    
-    
-    
+    }
+}
+
+
+
+
+
 
 
