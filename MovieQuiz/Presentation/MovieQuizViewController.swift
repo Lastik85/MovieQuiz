@@ -18,6 +18,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate,
     private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
+    private var alertPresenter: AlertPresenter?
     private var statisticService = StatisticService()
 
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
@@ -77,6 +78,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate,
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
+    
     func present(alert: UIAlertController) {
         self.present(alert, animated: true, completion: nil)
     }
@@ -197,7 +199,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate,
 
             self.questionFactory?.requestNextQuestion()
         }
-       AlertPresenter.init(delegate: self).showAlert(model: model)
+        alertPresenter?.showAlert(model: model)
 
     }
 }
