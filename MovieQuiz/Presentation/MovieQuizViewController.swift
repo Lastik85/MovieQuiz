@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate,
@@ -48,11 +47,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate,
 
         super.viewDidLoad()
         configFont()
-        imageView.layer.cornerRadius = 100
+        imageView.layer.cornerRadius = 20
         questionFactory = QuestionFactory(
             moviesLoader: MoviesLoader(),
             delegate: self
         )
+        alertPresenter = AlertPresenter(delegate: self)
         showLoadingIndicator()
         questionFactory?.loadData()
     }
@@ -78,7 +78,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate,
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
-    
+
     func present(alert: UIAlertController) {
         self.present(alert, animated: true, completion: nil)
     }

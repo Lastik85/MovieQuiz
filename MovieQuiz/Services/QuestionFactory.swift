@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 final class QuestionFactory: QuestionFactoryProtocol {
@@ -11,6 +10,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
         self.moviesLoader = moviesLoader
         self.delegate = delegate
     }
+    
     func loadData() {
         moviesLoader.loadMovies { [weak self] result in
             guard let self = self else { return }
@@ -23,6 +23,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
             }
         }
     }
+
     func requestNextQuestion() {
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
