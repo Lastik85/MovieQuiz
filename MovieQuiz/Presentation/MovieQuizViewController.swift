@@ -5,6 +5,8 @@ final class MovieQuizViewController: UIViewController, AlertDelegate,
 {
 
     private var presenter: MovieQuizPresenter!
+    private var alertPresenter: AlertPresenter?
+    
     @IBOutlet private var questionTitleLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
@@ -12,8 +14,6 @@ final class MovieQuizViewController: UIViewController, AlertDelegate,
     @IBOutlet private var noButton: UIButton!
     @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-
-    private var alertPresenter: AlertPresenter?
 
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
 
@@ -118,7 +118,7 @@ final class MovieQuizViewController: UIViewController, AlertDelegate,
         noButton.isEnabled = isEnabled
         yesButton.isEnabled = isEnabled
     }
-    
+
     private func clearBorder() {
         imageView.layer.borderWidth = 0
     }
